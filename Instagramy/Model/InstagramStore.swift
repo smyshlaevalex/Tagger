@@ -61,29 +61,23 @@ class InstagramStore {
                 return
             }
             
-            let photoMedias = carouselMedia.flatMap { media -> PhotoMedia? in
-                guard let type = media["type"] as? String, type == "image" else {
-                    return nil
+            var photoMedias = [PhotoMedia]()
+            
+            let lock = NSLock()
+            
+            for media in carouselMedia {
+                let parseCarouselOperation = ParseCarouselOperation(json: media) { photoMedia in
+                    if let photoMedia = photoMedia {
+                        lock.lock()
+                        photoMedias.append(photoMedia)
+                        lock.unlock()
+                    }
                 }
                 
-                guard let images = media["images"] as? [String: Any?],
-                    let thumbnail = images["thumbnail"] as? [String: Any?],
-                    let standartResulution = images["standard_resolution"] as? [String: Any?] else {
-                    return nil
-                }
-                
-                guard let thumbnailUrlString = thumbnail["url"] as? String,
-                    let standartResulutionUrlString = standartResulution["url"] as? String else {
-                        return nil
-                }
-                
-                guard let thumbnailUrl = URL(string: thumbnailUrlString),
-                    let standartResulutionUrl = URL(string: standartResulutionUrlString) else {
-                        return nil
-                }
-                
-                return PhotoMedia(standartResolutionUrl: standartResulutionUrl, thumbnailUrl: thumbnailUrl)
+                self.operationQueue.addOperation(parseCarouselOperation)
             }
+            
+            self.operationQueue.waitUntilAllOperationsAreFinished()
             
             complition(.success(photoMedias))
         }
@@ -95,29 +89,18 @@ class InstagramStore {
         DispatchQueue.global().async {
             var images = [URL: UIImage]()
             
+            let lock = NSLock()
+            
             let session = URLSession.shared
             
             for photoMedia in photoMedias {
-                self.operationQueue.addOperation {
-                    let semaphore = DispatchSemaphore(value: 0)
-                    
-                    let task = session.dataTask(with: photoMedia.thumbnailUrl) { data, response, error in
-                        defer {
-                            semaphore.signal()
-                        }
-                        
-                        guard let data = data,
-                            let image = UIImage(data: data) else {
-                            return
-                        }
-                        
-                        images[photoMedia.thumbnailUrl] = image
-                    }
-                    
-                    task.resume()
-                    
-                    semaphore.wait()
+                let downloadPhotoOperation = DownloadPhotoOperation(session: session, url: photoMedia.thumbnailUrl) { image in
+                    lock.lock()
+                    images[photoMedia.thumbnailUrl] = image
+                    lock.unlock()
                 }
+                
+                self.operationQueue.addOperation(downloadPhotoOperation)
             }
             
             self.operationQueue.waitUntilAllOperationsAreFinished()
@@ -136,16 +119,14 @@ class InstagramStore {
     func downloadImage(for photoMedia: PhotoMedia, complition: @escaping (Result<UIImage>) -> ()) {
         let session = URLSession.shared
         
-        let task = session.dataTask(with: photoMedia.standartResolutionUrl) { data, response, error in
-            guard let data = data,
-                let image = UIImage(data: data) else {
-                    complition(.error)
-                    return
+        let downloadPhotoOperation = DownloadPhotoOperation(session: session, url: photoMedia.standartResolutionUrl) { image in
+            if let image = image {
+                complition(.success(image))
+            } else {
+                complition(.error)
             }
-            
-            complition(.success(image))
         }
         
-        task.resume()
+        downloadPhotoOperation.start()
     }
 }

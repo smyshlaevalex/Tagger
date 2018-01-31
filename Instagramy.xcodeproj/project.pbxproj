@@ -15,6 +15,9 @@
 		FA422B312019E0A100C540E3 /* InstagramStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA422B302019E0A100C540E3 /* InstagramStore.swift */; };
 		FA422B332019ED1C00C540E3 /* AuthentificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA422B322019ED1C00C540E3 /* AuthentificationViewController.swift */; };
 		FA422B352019F60500C540E3 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA422B342019F60500C540E3 /* PhotoCollectionViewCell.swift */; };
+		FA5D38BA2020410D00B00534 /* DownloadPhotoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5D38B92020410D00B00534 /* DownloadPhotoOperation.swift */; };
+		FA69C3ED20223C22003A601B /* AsynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA69C3EC20223C22003A601B /* AsynchronousOperation.swift */; };
+		FA69C3EF2022414B003A601B /* ParseCarouselOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA69C3EE2022414B003A601B /* ParseCarouselOperation.swift */; };
 		FA94FF8A2019FCD400E38A80 /* PhotoMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA94FF892019FCD400E38A80 /* PhotoMedia.swift */; };
 		FA94FF8C201A077F00E38A80 /* PhotoPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA94FF8B201A077F00E38A80 /* PhotoPreviewViewController.swift */; };
 /* End PBXBuildFile section */
@@ -30,6 +33,9 @@
 		FA422B302019E0A100C540E3 /* InstagramStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramStore.swift; sourceTree = "<group>"; };
 		FA422B322019ED1C00C540E3 /* AuthentificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthentificationViewController.swift; sourceTree = "<group>"; };
 		FA422B342019F60500C540E3 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		FA5D38B92020410D00B00534 /* DownloadPhotoOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadPhotoOperation.swift; sourceTree = "<group>"; };
+		FA69C3EC20223C22003A601B /* AsynchronousOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsynchronousOperation.swift; sourceTree = "<group>"; };
+		FA69C3EE2022414B003A601B /* ParseCarouselOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseCarouselOperation.swift; sourceTree = "<group>"; };
 		FA94FF892019FCD400E38A80 /* PhotoMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMedia.swift; sourceTree = "<group>"; };
 		FA94FF8B201A077F00E38A80 /* PhotoPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +97,9 @@
 			children = (
 				FA422B302019E0A100C540E3 /* InstagramStore.swift */,
 				FA94FF892019FCD400E38A80 /* PhotoMedia.swift */,
+				FA69C3EE2022414B003A601B /* ParseCarouselOperation.swift */,
+				FA5D38B92020410D00B00534 /* DownloadPhotoOperation.swift */,
+				FA69C3EC20223C22003A601B /* AsynchronousOperation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -169,8 +178,11 @@
 			files = (
 				FA422B312019E0A100C540E3 /* InstagramStore.swift in Sources */,
 				FA94FF8C201A077F00E38A80 /* PhotoPreviewViewController.swift in Sources */,
+				FA5D38BA2020410D00B00534 /* DownloadPhotoOperation.swift in Sources */,
 				FA422B332019ED1C00C540E3 /* AuthentificationViewController.swift in Sources */,
 				FA422B352019F60500C540E3 /* PhotoCollectionViewCell.swift in Sources */,
+				FA69C3EF2022414B003A601B /* ParseCarouselOperation.swift in Sources */,
+				FA69C3ED20223C22003A601B /* AsynchronousOperation.swift in Sources */,
 				FA94FF8A2019FCD400E38A80 /* PhotoMedia.swift in Sources */,
 				FA422B172019DB5A00C540E3 /* AppDelegate.swift in Sources */,
 				FA422B292019DB8E00C540E3 /* PhotosCollectionViewController.swift in Sources */,
@@ -311,7 +323,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JDQG5G8BQX;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Instagramy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -327,7 +339,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JDQG5G8BQX;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Instagramy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

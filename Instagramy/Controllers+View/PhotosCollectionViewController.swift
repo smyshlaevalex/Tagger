@@ -44,7 +44,9 @@ class PhotosCollectionViewController: UICollectionViewController {
                     }
                 }
             case .error:
-                self.removeActivityIndicator()
+                DispatchQueue.main.async {
+                    self.removeActivityIndicator()
+                }
             }
         }
     }
