@@ -23,6 +23,13 @@ class DownloadPhotoOperation: AsynchronousOperation {
         super.start()
         
         let task = session.dataTask(with: url) { data, response, error in
+            guard let response = response as? HTTPURLResponse,
+                response.statusCode == 200,
+                error == nil else {
+                self.finish(image: nil)
+                return
+            }
+            
             guard let data = data,
                 let image = UIImage(data: data) else {
                     self.finish(image: nil)

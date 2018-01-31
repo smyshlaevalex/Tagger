@@ -39,11 +39,20 @@ class InstagramStore {
             return
         }
         
+        let hashtag = hashtag.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: " ", with: "")
+        
         let session = URLSession.shared
         
         let url = URL(string: "https://api.instagram.com/v1/tags/\(hashtag)/media/recent?access_token=\(accessToken)")!
         
         let task = session.dataTask(with: url) { data, response, error in
+            guard let response = response as? HTTPURLResponse,
+                response.statusCode == 200,
+                error == nil else {
+                    complition(.error)
+                    return
+            }
+            
             guard let data = data else {
                 complition(.error)
                 return
